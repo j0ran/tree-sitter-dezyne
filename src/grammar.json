@@ -322,7 +322,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "block_statement"
+          "name": "compound_statement"
         },
         {
           "type": "SYMBOL",
@@ -348,6 +348,14 @@
         {
           "type": "SYMBOL",
           "name": "on_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "guard_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "blocking_statement"
         }
       ]
     },
@@ -427,6 +435,31 @@
             "type": "SYMBOL",
             "name": "identifier"
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "="
+                },
+                {
+                  "type": "FIELD",
+                  "name": "init",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -529,7 +562,7 @@
       "type": "STRING",
       "value": ";"
     },
-    "block_statement": {
+    "compound_statement": {
       "type": "SEQ",
       "members": [
         {
@@ -741,6 +774,53 @@
         {
           "type": "STRING",
           "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_statement"
+        }
+      ]
+    },
+    "guard_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "otherwise"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_statement"
+        }
+      ]
+    },
+    "otherwise": {
+      "type": "STRING",
+      "value": "otherwise"
+    },
+    "blocking_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "blocking"
         },
         {
           "type": "SYMBOL",

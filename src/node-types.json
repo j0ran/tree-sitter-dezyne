@@ -41,19 +41,23 @@
     }
   },
   {
-    "type": "block_statement",
+    "type": "blocking_statement",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
         {
           "type": "assign_statement",
           "named": true
         },
         {
-          "type": "block_statement",
+          "type": "blocking_statement",
+          "named": true
+        },
+        {
+          "type": "compound_statement",
           "named": true
         },
         {
@@ -66,6 +70,73 @@
         },
         {
           "type": "function_call_statement",
+          "named": true
+        },
+        {
+          "type": "guard_statement",
+          "named": true
+        },
+        {
+          "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "illegal_statement",
+          "named": true
+        },
+        {
+          "type": "on_statement",
+          "named": true
+        },
+        {
+          "type": "out_event_statement",
+          "named": true
+        },
+        {
+          "type": "reply_statement",
+          "named": true
+        },
+        {
+          "type": "variable_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "compound_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "assign_statement",
+          "named": true
+        },
+        {
+          "type": "blocking_statement",
+          "named": true
+        },
+        {
+          "type": "compound_statement",
+          "named": true
+        },
+        {
+          "type": "defer_statement",
+          "named": true
+        },
+        {
+          "type": "empty_statement",
+          "named": true
+        },
+        {
+          "type": "function_call_statement",
+          "named": true
+        },
+        {
+          "type": "guard_statement",
           "named": true
         },
         {
@@ -108,7 +179,7 @@
           "named": true
         },
         {
-          "type": "block_statement",
+          "type": "compound_statement",
           "named": true
         },
         {
@@ -219,6 +290,77 @@
     "fields": {}
   },
   {
+    "type": "guard_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assign_statement",
+          "named": true
+        },
+        {
+          "type": "blocking_statement",
+          "named": true
+        },
+        {
+          "type": "compound_statement",
+          "named": true
+        },
+        {
+          "type": "defer_statement",
+          "named": true
+        },
+        {
+          "type": "empty_statement",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "function_call_statement",
+          "named": true
+        },
+        {
+          "type": "guard_statement",
+          "named": true
+        },
+        {
+          "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "illegal_statement",
+          "named": true
+        },
+        {
+          "type": "on_statement",
+          "named": true
+        },
+        {
+          "type": "otherwise",
+          "named": true
+        },
+        {
+          "type": "out_event_statement",
+          "named": true
+        },
+        {
+          "type": "reply_statement",
+          "named": true
+        },
+        {
+          "type": "variable_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "if_statement",
     "named": true,
     "fields": {
@@ -241,7 +383,7 @@
             "named": true
           },
           {
-            "type": "block_statement",
+            "type": "compound_statement",
             "named": true
           },
           {
@@ -287,7 +429,7 @@
             "named": true
           },
           {
-            "type": "block_statement",
+            "type": "compound_statement",
             "named": true
           },
           {
@@ -400,7 +542,11 @@
           "named": true
         },
         {
-          "type": "block_statement",
+          "type": "blocking_statement",
+          "named": true
+        },
+        {
+          "type": "compound_statement",
           "named": true
         },
         {
@@ -413,6 +559,10 @@
         },
         {
           "type": "function_call_statement",
+          "named": true
+        },
+        {
+          "type": "guard_statement",
           "named": true
         },
         {
@@ -526,7 +676,11 @@
           "named": true
         },
         {
-          "type": "block_statement",
+          "type": "blocking_statement",
+          "named": true
+        },
+        {
+          "type": "compound_statement",
           "named": true
         },
         {
@@ -539,6 +693,10 @@
         },
         {
           "type": "function_call_statement",
+          "named": true
+        },
+        {
+          "type": "guard_statement",
           "named": true
         },
         {
@@ -606,6 +764,16 @@
     "type": "variable_declaration",
     "named": true,
     "fields": {
+      "init": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
       "type": {
         "multiple": false,
         "required": true,
@@ -701,6 +869,18 @@
     "named": false
   },
   {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "blocking",
+    "named": false
+  },
+  {
     "type": "defer",
     "named": false
   },
@@ -739,6 +919,10 @@
   {
     "type": "optional",
     "named": false
+  },
+  {
+    "type": "otherwise",
+    "named": true
   },
   {
     "type": "reply",

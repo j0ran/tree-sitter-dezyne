@@ -44,7 +44,7 @@ module.exports = grammar({
             $.assign_statement,
             $.if_statement,
             $.empty_statement,
-            $.block_statement,
+            $.compound_statement,
             $.function_call_statement,
             $.out_event_statement,
             $.illegal_statement,
@@ -53,8 +53,9 @@ module.exports = grammar({
 
         _declarative_statement: $ => choice(
             $.on_statement,
-            // $.guard_statement,
-            // $.block_statement,
+            $.guard_statement,
+            $.blocking_statement,
+            // $.compound_statement,
         ),
 
         reply_statement: $ => seq(
@@ -67,6 +68,7 @@ module.exports = grammar({
         variable_declaration: $ => seq(
             field('type', $.type_name),
             field('var', $.identifier),
+            optional(seq('=', field('init', $.expression))),
             ';'
         ),
 
@@ -84,7 +86,7 @@ module.exports = grammar({
 
         empty_statement: $ => ';',
 
-        block_statement: $ => seq('{', repeat($._statement), '}'),
+        compound_statement: $ => seq('{', repeat($._statement), '}'),
 
         function_call_statement: $ => seq(field('function', $.identifier), '(', ')', ';'),
 
@@ -107,6 +109,12 @@ module.exports = grammar({
             ':',
             $._statement,
         ),
+
+        guard_statement: $ => seq('[', choice($.otherwise, $.expression), ']', $._statement),
+
+        otherwise: $ => 'otherwise',
+
+        blocking_statement: $ => seq('blocking', $._statement),
 
         _trigger_formal: $ => seq(
             field('var', $.identifier),
