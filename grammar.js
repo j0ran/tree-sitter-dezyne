@@ -64,11 +64,38 @@ module.exports = grammar({
         behavior_statement: $ => choice(
             $.function,
             $.variable,
-            // $.declarative_statement,
+            $.declarative_statement,
             $.type,
         ),
 
         function: $ => seq($.type_name, $.name, $.formals, $.compound),
+
+        declarative_statement: $ => choice(
+            $.on,
+            $.blocking,
+            $.guard,
+            prec(10, $.compound),
+        ),
+
+        on: $ => seq('on', $.triggers, ':', $.statement),
+
+        triggers: $ => seq($.trigger, repeat(seq(',', $.trigger))),
+        trigger: $ => choice(
+            $.port_event,
+            $.optional,
+            $.inevitable,
+            $.event_name,
+        ),
+        port_event: $ => seq($.port, '.', $.name, $.trigger_formals),
+        optional: $ => 'optional',
+        inevitable: $ => 'inevitable',
+        trigger_formals: $ => seq('(', optional(seq($.trigger_formal, repeat(seq(',', $.trigger_formal)))), ')'),
+        trigger_formal: $ => seq($.var, optional(seq('<-', $.var))),
+
+        guard: $ => seq('[', choice($.otherwise, $.expression), ']', $.statement),
+        otherwise: $ => 'otherwise',
+
+        compound : $ => seq('{', repeat($.statement), '}'),
 
         variable: $ => seq($.type_name, $.var_name, optional(seq('=', $.expression)), ';'),
 
@@ -79,29 +106,39 @@ module.exports = grammar({
 
         var_name: $ => $.identifier,
 
-        compound : $ => seq('{', repeat($.statement), '}'),
-
         statement: $ => choice(
-            // $.declarative_statement,
+            $.declarative_statement,
             $.imperative_statement,
         ),
 
         imperative_statement: $ => choice(
             $.variable,
-            // $.assign,
+            $.assign,
             // $.if_statement,
-            // $.illegal,
+            $.illegal,
             // $.return,
-            // $.skip_statement,
+            $.skip_statement,
             $.compound,
             // $.reply,
-            // $.defer,
+            $.defer,
             // $.action_or_call,
-            // $.interface_action,
+            seq($.interface_action, ';'),
         ),
+
+        defer: $ => seq('defer', optional($.arguments), $.imperative_statement),
+
+        interface_action: $ => $.identifier,
 
         call: $ => seq($.name, $.arguments),
         arguments: $ => seq('(', optional(seq($.expression, repeat(seq(',', $.expression)))), ')'),
+
+        skip_statement: $ => ';',
+
+        blocking: $ => seq('blocking', $.statement),
+
+        illegal: $ => seq('illegal', ';'),
+
+        assign: $ => seq($.var, '=', $.expression, ';'),
 
         expression: $ => choice(
             $.unary_expression,
@@ -143,6 +180,10 @@ module.exports = grammar({
 
         name: $ => $.identifier,
 
+        var: $ => $.identifier,
+
+        port: $ => $.identifier,
+
         scoped_name: $ => $.identifier,
 
         identifier: $ => /[a-zA-Z][a-zA-Z0-9]*/,
@@ -155,3 +196,6 @@ module.exports = grammar({
         ),
     }
 });
+
+// What is the purpose of illegal-triggers (line 233)
+// TODO: Expression interface_action
