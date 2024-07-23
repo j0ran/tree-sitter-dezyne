@@ -1,5 +1,47 @@
 [
   {
+    "type": "action",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arguments",
+          "named": true
+        },
+        {
+          "type": "name",
+          "named": true
+        },
+        {
+          "type": "port_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "action_or_call",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "action",
+          "named": true
+        },
+        {
+          "type": "call",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "arguments",
     "named": true,
     "fields": {},
@@ -95,6 +137,21 @@
     }
   },
   {
+    "type": "binding",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "end_point",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "blocking",
     "named": true,
     "fields": {},
@@ -104,6 +161,25 @@
       "types": [
         {
           "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "behavior",
+          "named": true
+        },
+        {
+          "type": "system",
           "named": true
         }
       ]
@@ -132,6 +208,29 @@
     "type": "comment",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "component",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "body",
+          "named": true
+        },
+        {
+          "type": "port",
+          "named": true
+        },
+        {
+          "type": "scoped_name",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "compound",
@@ -234,6 +333,21 @@
     }
   },
   {
+    "type": "end_point",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "compound_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "enum",
     "named": true,
     "fields": {},
@@ -302,6 +416,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "action",
+          "named": true
+        },
         {
           "type": "binary_expression",
           "named": true
@@ -472,6 +590,25 @@
     }
   },
   {
+    "type": "if_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "imperative_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "illegal",
     "named": true,
     "fields": {}
@@ -485,6 +622,10 @@
       "required": true,
       "types": [
         {
+          "type": "action_or_call",
+          "named": true
+        },
+        {
           "type": "assign",
           "named": true
         },
@@ -497,11 +638,23 @@
           "named": true
         },
         {
+          "type": "if_statement",
+          "named": true
+        },
+        {
           "type": "illegal",
           "named": true
         },
         {
           "type": "interface_action",
+          "named": true
+        },
+        {
+          "type": "reply",
+          "named": true
+        },
+        {
+          "type": "return",
           "named": true
         },
         {
@@ -525,6 +678,44 @@
       "types": [
         {
           "type": "file_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "instance",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "compound_name",
+          "named": true
+        },
+        {
+          "type": "name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "instance_or_binding",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binding",
+          "named": true
+        },
+        {
+          "type": "instance",
           "named": true
         }
       ]
@@ -664,6 +855,10 @@
       "required": true,
       "types": [
         {
+          "type": "component",
+          "named": true
+        },
+        {
           "type": "interface",
           "named": true
         },
@@ -702,15 +897,36 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "compound_name",
+          "named": true
+        },
+        {
+          "type": "formals",
+          "named": true
+        },
+        {
+          "type": "port_direction",
+          "named": true
+        },
+        {
+          "type": "port_name",
+          "named": true
+        },
+        {
+          "type": "port_qualifiers",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "port_direction",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "port_event",
@@ -725,7 +941,7 @@
           "named": true
         },
         {
-          "type": "port",
+          "type": "port_name",
           "named": true
         },
         {
@@ -734,6 +950,26 @@
         }
       ]
     }
+  },
+  {
+    "type": "port_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "port_qualifiers",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "range",
@@ -745,6 +981,40 @@
       "types": [
         {
           "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "reply",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "port_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "return",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "expression",
           "named": true
         }
       ]
@@ -774,11 +1044,11 @@
       "required": true,
       "types": [
         {
-          "type": "dollars",
+          "type": "component",
           "named": true
         },
         {
-          "type": "expression",
+          "type": "dollars",
           "named": true
         },
         {
@@ -834,6 +1104,21 @@
         },
         {
           "type": "imperative_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "system",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "instance_or_binding",
           "named": true
         }
       ]
@@ -1042,6 +1327,10 @@
     "named": false
   },
   {
+    "type": "*",
+    "named": false
+  },
+  {
     "type": "+",
     "named": false
   },
@@ -1094,6 +1383,10 @@
     "named": false
   },
   {
+    "type": "<=>",
+    "named": false
+  },
+  {
     "type": "=",
     "named": false
   },
@@ -1122,11 +1415,19 @@
     "named": false
   },
   {
+    "type": "behaviour",
+    "named": false
+  },
+  {
     "type": "blocking",
     "named": false
   },
   {
     "type": "bool",
+    "named": false
+  },
+  {
+    "type": "component",
     "named": false
   },
   {
@@ -1138,11 +1439,19 @@
     "named": true
   },
   {
+    "type": "else",
+    "named": false
+  },
+  {
     "type": "enum",
     "named": false
   },
   {
     "type": "extern",
+    "named": false
+  },
+  {
+    "type": "external",
     "named": false
   },
   {
@@ -1156,6 +1465,10 @@
   {
     "type": "identifier",
     "named": true
+  },
+  {
+    "type": "if",
+    "named": false
   },
   {
     "type": "illegal",
@@ -1172,6 +1485,10 @@
   {
     "type": "inevitable",
     "named": true
+  },
+  {
+    "type": "injected",
+    "named": false
   },
   {
     "type": "inout",
@@ -1206,11 +1523,27 @@
     "named": false
   },
   {
+    "type": "provides",
+    "named": false
+  },
+  {
+    "type": "reply",
+    "named": false
+  },
+  {
+    "type": "requires",
+    "named": false
+  },
+  {
+    "type": "return",
+    "named": false
+  },
+  {
     "type": "subint",
     "named": false
   },
   {
-    "type": "test",
+    "type": "system",
     "named": false
   },
   {

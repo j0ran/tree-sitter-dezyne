@@ -5,6 +5,11 @@ module.exports = grammar({
 
     word: $ => $.identifier,
 
+    conflicts: $ => [
+        [$.compound_name, $.port_name],
+        [$.compound_name],
+    ],
+
     rules: {
         root: $ => repeat($.root_statement),
 
@@ -14,14 +19,15 @@ module.exports = grammar({
             $.type,
             $.namespace,
             $.interface,
-            // $.component,
-            seq('test', '(', $.expression, ')', ';'),
+            $.component,
         ),
 
         import: $ => seq('import', $.file_name, ';'),
+
         file_name: $ => /[^\s][^;]*/,
 
         dollars: $ => seq('$', $.dollars_content, '$'),
+
         dollars_content: $ => /[^\$]*/,
 
         type: $ => choice(
@@ -31,9 +37,11 @@ module.exports = grammar({
         ),
 
         enum: $ => seq('enum', $.scoped_name, '{', $.fields, '}', ';'),
+
         fields: $ => seq($.name, repeat(seq(',', $.name)), optional(',')),
 
         int: $ => seq('subint', $.scoped_name, '{', $.range, '}', ';'),
+
         range: $ => seq($.number, '..', $.number),
 
         extern: $ => seq('extern', $.scoped_name, $.dollars, ';'),
@@ -44,7 +52,7 @@ module.exports = grammar({
             $.type,
             $.namespace,
             $.interface,
-            // $.component,
+            $.component,
         ),
 
         interface: $ => seq('interface', $.scoped_name, '{', repeat($.interface_statement), $.behavior, '}'),
@@ -55,11 +63,39 @@ module.exports = grammar({
         ),
 
         event: $ => seq($.direction, $.type_name, $.event_name, $.formals, ';'),
+
         direction: $ => choice('in', 'out'),
+
+        component: $ => seq('component', $.scoped_name, '{', repeat($.port), $.body, '}'),
+
+        body: $ => choice($.behavior, $.system),
+
+        system: $ => seq('system', '{', repeat($.instance_or_binding), '}'),
+
+        instance_or_binding: $ => choice($.instance, $.binding),
+
+        instance: $ => seq($.compound_name, $.name, ';'),
+
+        binding: $ => seq($.end_point, '<=>', $.end_point, ';'),
+
+        end_point: $ => choice(
+            seq($.compound_name, optional(seq('.', '*'))),
+            '*'
+        ),
+
+        port: $ => seq($.port_direction, optional($.port_qualifiers), $.compound_name, optional($.formals), $.port_name, ';'),
+
+        port_direction: $ => choice('provides', 'requires'),
+
+        port_qualifiers: $ => choice('blocking', 'external', 'injected'),
+
+        formals: $ => seq('(', optional(seq($.formal, repeat(seq(',', $.formal)))), ')'),
+
+        formal: $ => seq(optional(choice('in', 'out', 'inout')), $.type_name, $.var_name),
 
         type_name: $ => choice($.compound_name, 'bool', 'void'),
 
-        behavior: $ => seq('behavior', optional($.name), '{', repeat($.behavior_statement), '}'),
+        behavior: $ => seq(choice('behavior', 'behaviour') , optional($.name), '{', repeat($.behavior_statement), '}'),
 
         behavior_statement: $ => choice(
             $.function,
@@ -80,19 +116,26 @@ module.exports = grammar({
         on: $ => seq('on', $.triggers, ':', $.statement),
 
         triggers: $ => seq($.trigger, repeat(seq(',', $.trigger))),
+
         trigger: $ => choice(
             $.port_event,
             $.optional,
             $.inevitable,
             $.event_name,
         ),
-        port_event: $ => seq($.port, '.', $.name, $.trigger_formals),
+
+        port_event: $ => seq($.port_name, '.', $.name, $.trigger_formals),
+
         optional: $ => 'optional',
+
         inevitable: $ => 'inevitable',
+
         trigger_formals: $ => seq('(', optional(seq($.trigger_formal, repeat(seq(',', $.trigger_formal)))), ')'),
+
         trigger_formal: $ => seq($.var, optional(seq('<-', $.var))),
 
         guard: $ => seq('[', choice($.otherwise, $.expression), ']', $.statement),
+
         otherwise: $ => 'otherwise',
 
         compound : $ => seq('{', repeat($.statement), '}'),
@@ -100,9 +143,6 @@ module.exports = grammar({
         variable: $ => seq($.type_name, $.var_name, optional(seq('=', $.expression)), ';'),
 
         event_name: $ => $.identifier,
-
-        formals: $ => seq('(', optional(seq($.formal, repeat(seq(',', $.formal)))), ')'),
-        formal: $ => seq(optional(choice('in', 'out', 'inout')), $.type_name, $.var_name),
 
         var_name: $ => $.identifier,
 
@@ -114,14 +154,14 @@ module.exports = grammar({
         imperative_statement: $ => choice(
             $.variable,
             $.assign,
-            // $.if_statement,
+            $.if_statement,
             $.illegal,
-            // $.return,
+            $.return,
             $.skip_statement,
             $.compound,
-            // $.reply,
+            $.reply,
             $.defer,
-            // $.action_or_call,
+            $.action_or_call,
             seq($.interface_action, ';'),
         ),
 
@@ -129,7 +169,12 @@ module.exports = grammar({
 
         interface_action: $ => $.identifier,
 
+        action_or_call: $ => seq(choice($.action, $.call), ';'),
+
+        action: $ => seq($.port_name, '.', $.name, $.arguments),
+
         call: $ => seq($.name, $.arguments),
+
         arguments: $ => seq('(', optional(seq($.expression, repeat(seq(',', $.expression)))), ')'),
 
         skip_statement: $ => ';',
@@ -140,6 +185,12 @@ module.exports = grammar({
 
         assign: $ => seq($.var, '=', $.expression, ';'),
 
+        if_statement: $ => prec.left(seq('if', '(', $.expression, ')', $.imperative_statement, optional(seq('else', $.imperative_statement)))),
+
+        reply: $ => seq(optional(seq($.port_name, '.')), 'reply', '(', $.expression, ')', ';'),
+
+        return: $ => seq('return', optional($.expression), ';'),
+
         expression: $ => choice(
             $.unary_expression,
             $.group,
@@ -147,10 +198,13 @@ module.exports = grammar({
             $.literal,
             $.compound_name,
             $.call,
+            $.action,
             // $.interface_action,
             $.binary_expression,
         ),
+
         group: $ => seq('(', $.expression, ')'),
+
         literal: $ => choice($.number, 'true', 'false'),
 
         unary_expression: $ => prec(2, choice(
@@ -182,11 +236,11 @@ module.exports = grammar({
 
         var: $ => $.identifier,
 
-        port: $ => $.identifier,
+        port_name: $ => $.identifier,
 
         scoped_name: $ => $.identifier,
 
-        identifier: $ => /[a-zA-Z][a-zA-Z0-9]*/,
+        identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
         number: $ => /-?[0-9]+/,
 
@@ -198,4 +252,5 @@ module.exports = grammar({
 });
 
 // What is the purpose of illegal-triggers (line 233)
+// What is the interface action in an expression? (line 306)
 // TODO: Expression interface_action
