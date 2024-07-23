@@ -15,6 +15,48 @@
     }
   },
   {
+    "type": "behavior",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "behavior_statement",
+          "named": true
+        },
+        {
+          "type": "name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "behavior_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "function",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "binary_expression",
     "named": true,
     "fields": {},
@@ -54,6 +96,21 @@
     "fields": {}
   },
   {
+    "type": "compound",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "compound_name",
     "named": true,
     "fields": {},
@@ -71,6 +128,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "direction",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "dollars",
@@ -101,6 +163,48 @@
         },
         {
           "type": "scoped_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "event",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "direction",
+          "named": true
+        },
+        {
+          "type": "event_name",
+          "named": true
+        },
+        {
+          "type": "formals",
+          "named": true
+        },
+        {
+          "type": "type_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "event_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -180,6 +284,67 @@
     }
   },
   {
+    "type": "formal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type_name",
+          "named": true
+        },
+        {
+          "type": "var_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "formals",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "formal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "compound",
+          "named": true
+        },
+        {
+          "type": "formals",
+          "named": true
+        },
+        {
+          "type": "name",
+          "named": true
+        },
+        {
+          "type": "type_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "global",
     "named": true,
     "fields": {}
@@ -194,6 +359,25 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "imperative_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "compound",
+          "named": true
+        },
+        {
+          "type": "variable",
           "named": true
         }
       ]
@@ -228,6 +412,48 @@
         },
         {
           "type": "scoped_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interface",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "behavior",
+          "named": true
+        },
+        {
+          "type": "interface_statement",
+          "named": true
+        },
+        {
+          "type": "scoped_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interface_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "event",
+          "named": true
+        },
+        {
+          "type": "type",
           "named": true
         }
       ]
@@ -291,6 +517,10 @@
       "required": true,
       "types": [
         {
+          "type": "interface",
+          "named": true
+        },
+        {
           "type": "namespace",
           "named": true
         },
@@ -352,6 +582,10 @@
           "named": true
         },
         {
+          "type": "interface",
+          "named": true
+        },
+        {
           "type": "namespace",
           "named": true
         },
@@ -372,6 +606,21 @@
       "types": [
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "imperative_statement",
           "named": true
         }
       ]
@@ -401,6 +650,21 @@
     }
   },
   {
+    "type": "type_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "compound_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "unary_expression",
     "named": true,
     "fields": {},
@@ -410,6 +674,44 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "var_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "variable",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "type_name",
+          "named": true
+        },
+        {
+          "type": "var_name",
           "named": true
         }
       ]
@@ -484,6 +786,10 @@
     "named": false
   },
   {
+    "type": "=",
+    "named": false
+  },
+  {
     "type": "==",
     "named": false
   },
@@ -493,6 +799,14 @@
   },
   {
     "type": ">=",
+    "named": false
+  },
+  {
+    "type": "behavior",
+    "named": false
+  },
+  {
+    "type": "bool",
     "named": false
   },
   {
@@ -524,12 +838,28 @@
     "named": false
   },
   {
+    "type": "in",
+    "named": false
+  },
+  {
+    "type": "inout",
+    "named": false
+  },
+  {
+    "type": "interface",
+    "named": false
+  },
+  {
     "type": "namespace",
     "named": false
   },
   {
     "type": "number",
     "named": true
+  },
+  {
+    "type": "out",
+    "named": false
   },
   {
     "type": "subint",
@@ -541,6 +871,10 @@
   },
   {
     "type": "true",
+    "named": false
+  },
+  {
+    "type": "void",
     "named": false
   },
   {

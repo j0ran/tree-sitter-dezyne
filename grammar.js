@@ -13,7 +13,7 @@ module.exports = grammar({
             $.dollars,
             $.type,
             $.namespace,
-            // $.interface,
+            $.interface,
             // $.component,
             seq('test', '(', $.expression, ')', ';'),
         ),
@@ -43,14 +43,62 @@ module.exports = grammar({
         namespace_statement: $ => choice(
             $.type,
             $.namespace,
-            // $.interface,
+            $.interface,
             // $.component,
         ),
 
-        // statement: $ => choice(
-        //     $.declarative_statement,
-        //     $.imperative_statement,
-        // ),
+        interface: $ => seq('interface', $.scoped_name, '{', repeat($.interface_statement), $.behavior, '}'),
+
+        interface_statement: $ => choice(
+            $.type,
+            $.event,
+        ),
+
+        event: $ => seq($.direction, $.type_name, $.event_name, $.formals, ';'),
+        direction: $ => choice('in', 'out'),
+
+        type_name: $ => choice($.compound_name, 'bool', 'void'),
+
+        behavior: $ => seq('behavior', optional($.name), '{', repeat($.behavior_statement), '}'),
+
+        behavior_statement: $ => choice(
+            $.function,
+            $.variable,
+            // $.declarative_statement,
+            $.type,
+        ),
+
+        function: $ => seq($.type_name, $.name, $.formals, $.compound),
+
+        variable: $ => seq($.type_name, $.var_name, optional(seq('=', $.expression)), ';'),
+
+        event_name: $ => $.identifier,
+
+        formals: $ => seq('(', optional(seq($.formal, repeat(seq(',', $.formal)))), ')'),
+        formal: $ => seq(optional(choice('in', 'out', 'inout')), $.type_name, $.var_name),
+
+        var_name: $ => $.identifier,
+
+        compound : $ => seq('{', repeat($.statement), '}'),
+
+        statement: $ => choice(
+            // $.declarative_statement,
+            $.imperative_statement,
+        ),
+
+        imperative_statement: $ => choice(
+            $.variable,
+            // $.assign,
+            // $.if_statement,
+            // $.illegal,
+            // $.return,
+            // $.skip_statement,
+            $.compound,
+            // $.reply,
+            // $.defer,
+            // $.action_or_call,
+            // $.interface_action,
+        ),
 
         call: $ => seq($.name, $.arguments),
         arguments: $ => seq('(', optional(seq($.expression, repeat(seq(',', $.expression)))), ')'),
