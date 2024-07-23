@@ -2,7 +2,7 @@
   "name": "tree-sitter-dezyne",
   "version": "1.0.0",
   "description": "Tree Sitter Parser for Dezyne",
-  "main": "index.js",
+  "main": "bindings/node",
   "types": "bindings/node",
   "scripts": {
     "test": "npx tree-sitter-cli test",
