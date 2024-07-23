@@ -7,7 +7,8 @@
   "scripts": {
     "test": "npx tree-sitter-cli test",
     "install": "node-gyp-build",
-    "prebuildify": "prebuildify --napi --strip"
+    "prebuildify": "prebuildify --napi --strip",
+    "playground": "npx tree-sitter-cli generate && npx tree-sitter-cli build --wasm && npx tree-sitter-cli playground"
   },
   "author": "Joran Jessurun <joran@ajmail.nl>",
   "license": "MIT",
