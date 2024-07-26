@@ -3,7 +3,7 @@ module.exports = grammar({
 
     extras: $ => [$.comment, /\s+/],
 
-    word: $ => $.identifier,
+    word: $ => $._identifier,
 
     conflicts: $ => [
         [$.compound_name, $.port_name],
@@ -11,54 +11,54 @@ module.exports = grammar({
     ],
 
     rules: {
-        root: $ => repeat($.root_statement),
+        root: $ => repeat($._root_statement),
 
-        root_statement: $ => choice(
+        _root_statement: $ => choice(
             $.import,
             $.dollars,
-            $.type,
+            $._type,
             $.namespace,
             $.interface,
             $.component,
         ),
 
-        import: $ => seq('import', $.file_name, ';'),
+        import: $ => seq('import', field('file_name', $.file_name), ';'),
 
         file_name: $ => /[^\s][^;]*/,
 
-        dollars: $ => seq('$', $.dollars_content, '$'),
+        dollars: $ => seq('$', field('value', $.dollars_content), '$'),
 
         dollars_content: $ => /[^\$]*/,
 
-        type: $ => choice(
+        _type: $ => choice(
             $.enum,
             $.int,
             $.extern,
         ),
 
-        enum: $ => seq('enum', $.scoped_name, '{', $.fields, '}', ';'),
+        enum: $ => seq('enum', field('name', $.scoped_name), field('fields', $.fields), ';'),
 
-        fields: $ => seq($.name, repeat(seq(',', $.name)), optional(',')),
+        fields: $ => seq('{', field('name', $.name), repeat(seq(',', field('name', $.name))), optional(','), '}'),
 
-        int: $ => seq('subint', $.scoped_name, '{', $.range, '}', ';'),
+        int: $ => seq('subint', field('name', $.scoped_name), '{', $._range, '}', ';'),
 
-        range: $ => seq($.number, '..', $.number),
+        _range: $ => seq(field('from', $.number), '..', field('to', $.number)),
 
-        extern: $ => seq('extern', $.scoped_name, $.dollars, ';'),
+        extern: $ => seq('extern', field('name', $.scoped_name), '$', field('value', $.dollars_content), '$', ';'),
 
-        namespace: $ => seq('namespace', $.compound_name, '{', repeat($.namespace_statement), '}'),
+        namespace: $ => seq('namespace', field('name', $.compound_name), '{', repeat($._namespace_statement), '}'),
 
-        namespace_statement: $ => choice(
-            $.type,
+        _namespace_statement: $ => choice(
+            $._type,
             $.namespace,
             $.interface,
             $.component,
         ),
 
-        interface: $ => seq('interface', $.scoped_name, '{', repeat($.interface_statement), $.behavior, '}'),
+        interface: $ => seq('interface', $.scoped_name, '{', repeat($.interface_statement), optional($.behavior), '}'),
 
         interface_statement: $ => choice(
-            $.type,
+            $._type,
             $.event,
         ),
 
@@ -101,7 +101,7 @@ module.exports = grammar({
             $.function,
             $.variable,
             $.declarative_statement,
-            $.type,
+            $._type,
         ),
 
         function: $ => seq($.type_name, $.name, $.formals, $.compound),
@@ -142,9 +142,9 @@ module.exports = grammar({
 
         variable: $ => seq($.type_name, $.var_name, optional(seq('=', $.expression)), ';'),
 
-        event_name: $ => $.identifier,
+        event_name: $ => $._identifier,
 
-        var_name: $ => $.identifier,
+        var_name: $ => $._identifier,
 
         statement: $ => choice(
             $.declarative_statement,
@@ -167,7 +167,7 @@ module.exports = grammar({
 
         defer: $ => seq('defer', optional($.arguments), $.imperative_statement),
 
-        interface_action: $ => $.identifier,
+        interface_action: $ => $._identifier,
 
         action_or_call: $ => seq(choice($.action, $.call), ';'),
 
@@ -226,21 +226,24 @@ module.exports = grammar({
         ),
 
         compound_name: $ => seq(
-            optional($.global),
-            seq($.identifier, repeat(seq('.', $.identifier)))
+            optional(field('global', $.global)),
+            seq(
+                field('part', alias($._identifier, $.identifier)), 
+                repeat(field('part', seq('.', alias($._identifier, $.identifier))))
+            )
         ),
 
         global: $ => '.',
 
-        name: $ => $.identifier,
+        name: $ => $._identifier,
 
-        var: $ => $.identifier,
+        var: $ => $._identifier,
 
-        port_name: $ => $.identifier,
+        port_name: $ => $._identifier,
 
-        scoped_name: $ => $.identifier,
+        scoped_name: $ => $._identifier,
 
-        identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+        _identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
         number: $ => /-?[0-9]+/,
 

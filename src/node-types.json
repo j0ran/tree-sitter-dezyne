@@ -107,11 +107,19 @@
           "named": true
         },
         {
+          "type": "enum",
+          "named": true
+        },
+        {
+          "type": "extern",
+          "named": true
+        },
+        {
           "type": "function",
           "named": true
         },
         {
-          "type": "type",
+          "type": "int",
           "named": true
         },
         {
@@ -250,20 +258,31 @@
   {
     "type": "compound_name",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "global",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
+    "fields": {
+      "global": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "global",
+            "named": true
+          }
+        ]
+      },
+      "part": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ".",
+            "named": false
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -320,16 +339,17 @@
   {
     "type": "dollars",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "dollars_content",
-          "named": true
-        }
-      ]
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dollars_content",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -350,20 +370,27 @@
   {
     "type": "enum",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "fields",
-          "named": true
-        },
-        {
-          "type": "scoped_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "fields": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "fields",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "scoped_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -396,17 +423,7 @@
   {
     "type": "event_name",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "expression",
@@ -454,35 +471,43 @@
   {
     "type": "extern",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "dollars",
-          "named": true
-        },
-        {
-          "type": "scoped_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "scoped_name",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dollars_content",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "fields",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "name": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -671,16 +696,17 @@
   {
     "type": "import",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "file_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "file_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "file_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -724,20 +750,37 @@
   {
     "type": "int",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "range",
-          "named": true
-        },
-        {
-          "type": "scoped_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "from": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "scoped_name",
+            "named": true
+          }
+        ]
+      },
+      "to": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -766,17 +809,7 @@
   {
     "type": "interface_action",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "interface_statement",
@@ -787,11 +820,19 @@
       "required": true,
       "types": [
         {
+          "type": "enum",
+          "named": true
+        },
+        {
           "type": "event",
           "named": true
         },
         {
-          "type": "type",
+          "type": "extern",
+          "named": true
+        },
+        {
+          "type": "int",
           "named": true
         }
       ]
@@ -815,47 +856,41 @@
   {
     "type": "name",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "namespace",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "compound_name",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "compound_name",
-          "named": true
-        },
-        {
-          "type": "namespace_statement",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "namespace_statement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "component",
+          "named": true
+        },
+        {
+          "type": "enum",
+          "named": true
+        },
+        {
+          "type": "extern",
+          "named": true
+        },
+        {
+          "type": "int",
           "named": true
         },
         {
@@ -864,10 +899,6 @@
         },
         {
           "type": "namespace",
-          "named": true
-        },
-        {
-          "type": "type",
           "named": true
         }
       ]
@@ -954,37 +985,12 @@
   {
     "type": "port_name",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "port_qualifiers",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "range",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "number",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "reply",
@@ -1029,21 +1035,6 @@
       "required": false,
       "types": [
         {
-          "type": "root_statement",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "root_statement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
           "type": "component",
           "named": true
         },
@@ -1052,7 +1043,19 @@
           "named": true
         },
         {
+          "type": "enum",
+          "named": true
+        },
+        {
+          "type": "extern",
+          "named": true
+        },
+        {
           "type": "import",
+          "named": true
+        },
+        {
+          "type": "int",
           "named": true
         },
         {
@@ -1062,10 +1065,6 @@
         {
           "type": "namespace",
           "named": true
-        },
-        {
-          "type": "type",
-          "named": true
         }
       ]
     }
@@ -1073,17 +1072,7 @@
   {
     "type": "scoped_name",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "skip_statement",
@@ -1197,29 +1186,6 @@
     }
   },
   {
-    "type": "type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "enum",
-          "named": true
-        },
-        {
-          "type": "extern",
-          "named": true
-        },
-        {
-          "type": "int",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "type_name",
     "named": true,
     "fields": {},
@@ -1252,32 +1218,12 @@
   {
     "type": "var",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "var_name",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "variable",
