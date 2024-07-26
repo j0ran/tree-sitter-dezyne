@@ -55,76 +55,119 @@ module.exports = grammar({
             $.component,
         ),
 
-        interface: $ => seq('interface', $.scoped_name, '{', repeat($.interface_statement), optional($.behavior), '}'),
+        interface: $ => seq('interface', field('name', $.scoped_name), field('body', $.interface_body)),
 
-        interface_statement: $ => choice(
+        interface_body: $ => seq('{', repeat($._interface_statement), optional(field('behavior', $.behavior)), '}'),
+
+        _interface_statement: $ => choice(
             $._type,
             $.event,
         ),
 
-        event: $ => seq($.direction, $.type_name, $.event_name, $.formals, ';'),
+        event: $ => seq(
+            field('direction', $.direction), 
+            field('type_name', $.type_name), 
+            field('event_name', $.event_name), 
+            field('formals', $.formals), 
+            ';'
+        ),
 
         direction: $ => choice('in', 'out'),
 
-        component: $ => seq('component', $.scoped_name, '{', repeat($.port), $.body, '}'),
+        component: $ => seq(
+            'component', 
+            field('name', $.scoped_name), 
+            '{', repeat(field('port', $.port)), optional(field('body', $.body)), '}'
+        ),
 
         body: $ => choice($.behavior, $.system),
 
-        system: $ => seq('system', '{', repeat($.instance_or_binding), '}'),
+        system: $ => seq('system', field('body', $.system_body)),
 
-        instance_or_binding: $ => choice($.instance, $.binding),
+        system_body: $ => seq('{', repeat($._instance_or_binding), '}'),
 
-        instance: $ => seq($.compound_name, $.name, ';'),
+        _instance_or_binding: $ => choice($.instance, $.binding),
 
-        binding: $ => seq($.end_point, '<=>', $.end_point, ';'),
+        instance: $ => seq(field('type', $.compound_name), field('name', $.name), ';'),
+
+        binding: $ => seq(field('left', $.end_point), '<=>', field('right', $.end_point), ';'),
 
         end_point: $ => choice(
-            seq($.compound_name, optional(seq('.', '*'))),
-            '*'
+            seq(field('name', $.compound_name), optional(seq('.', field('asterisk', $.asterisk)))),
+            field('asterisk', $.asterisk)
         ),
 
-        port: $ => seq($.port_direction, optional($.port_qualifiers), $.compound_name, optional($.formals), $.port_name, ';'),
+        asterisk: _ => '*',
+
+        port: $ => seq(
+            field('direction', $.port_direction), 
+            optional(field('qualifiers', $.port_qualifiers)), 
+            field('type', $.compound_name), 
+            optional(field('formals', $.formals)), 
+            field('name', $.port_name), 
+            ';'
+        ),
 
         port_direction: $ => choice('provides', 'requires'),
 
-        port_qualifiers: $ => choice('blocking', 'external', 'injected'),
+        port_qualifiers: $ => repeat1(field('qualifier', $.port_qualifier)),
 
-        formals: $ => seq('(', optional(seq($.formal, repeat(seq(',', $.formal)))), ')'),
+        port_qualifier: _ => choice('blocking', 'external', 'injected'),
 
-        formal: $ => seq(optional(choice('in', 'out', 'inout')), $.type_name, $.var_name),
+        formals: $ => seq('(', optional(seq(field('formal', $.formal), repeat(seq(',', field('formal', $.formal))))), ')'),
+
+        formal: $ => seq(
+            optional(field('direction', $.formal_direction)), 
+            field('type', $.type_name), 
+            field('name', $.var_name)
+        ),
+
+        formal_direction: _ => choice('in', 'out', 'inout'),
 
         type_name: $ => choice($.compound_name, 'bool', 'void'),
 
-        behavior: $ => seq(choice('behavior', 'behaviour') , optional($.name), '{', repeat($.behavior_statement), '}'),
+        behavior: $ => seq(choice('behavior', 'behaviour') , optional(field('name', $.name)), field('body', $.behavior_body)),
 
-        behavior_statement: $ => choice(
+        behavior_body: $ => seq('{', repeat($._behavior_statement), '}'),
+
+        _behavior_statement: $ => choice(
             $.function,
             $.variable,
-            $.declarative_statement,
+            $._declarative_statement,
             $._type,
         ),
 
-        function: $ => seq($.type_name, $.name, $.formals, $.compound),
+        function: $ => seq(
+            field('return_type', $.type_name), 
+            field('name', $.name), 
+            field('formals', $.formals), 
+            field('body', $.compound)
+        ),
 
-        declarative_statement: $ => choice(
+        _declarative_statement: $ => choice(
             $.on,
             $.blocking,
             $.guard,
             prec(10, $.compound),
         ),
 
-        on: $ => seq('on', $.triggers, ':', $.statement),
+        on: $ => seq('on', field('triggers', $.triggers), ':', field('body', $._statement)),
 
-        triggers: $ => seq($.trigger, repeat(seq(',', $.trigger))),
+        triggers: $ => seq(field('trigger', $.trigger), repeat(seq(',', field('trigger', $.trigger)))),
 
         trigger: $ => choice(
             $.port_event,
             $.optional,
             $.inevitable,
-            $.event_name,
+            $.event_name, // interface event
         ),
 
-        port_event: $ => seq($.port_name, '.', $.name, $.trigger_formals),
+        port_event: $ => seq(
+            field('port', $.port_name), 
+            '.', 
+            field('name', $.name), 
+            field('formals', $.trigger_formals)
+        ),
 
         optional: $ => 'optional',
 
@@ -134,24 +177,34 @@ module.exports = grammar({
 
         trigger_formal: $ => seq($.var, optional(seq('<-', $.var))),
 
-        guard: $ => seq('[', choice($.otherwise, $.expression), ']', $.statement),
+        guard: $ => seq('[', $._otherwise_or_expression, ']', field('body', $._statement)),
+
+        _otherwise_or_expression: $ => choice(
+            field('condition', $.otherwise), 
+            field('condition', $._expression)
+        ),
 
         otherwise: $ => 'otherwise',
 
-        compound : $ => seq('{', repeat($.statement), '}'),
+        compound : $ => seq('{', repeat(field('statement', $._statement)), '}'),
 
-        variable: $ => seq($.type_name, $.var_name, optional(seq('=', $.expression)), ';'),
+        variable: $ => seq(
+            field('type_name', $.type_name), 
+            field('name', $.var_name), 
+            optional(seq('=', field('expression', $._expression))), 
+            ';'
+        ),
 
         event_name: $ => $._identifier,
 
         var_name: $ => $._identifier,
 
-        statement: $ => choice(
-            $.declarative_statement,
-            $.imperative_statement,
+        _statement: $ => choice(
+            $._declarative_statement,
+            $._imperative_statement,
         ),
 
-        imperative_statement: $ => choice(
+        _imperative_statement: $ => choice(
             $.variable,
             $.assign,
             $.if_statement,
@@ -161,37 +214,49 @@ module.exports = grammar({
             $.compound,
             $.reply,
             $.defer,
-            $.action_or_call,
+            $._action_or_call,
             seq($.interface_action, ';'),
         ),
 
-        defer: $ => seq('defer', optional($.arguments), $.imperative_statement),
+        defer: $ => seq('defer', optional(field('arguments', $.arguments)), field('statement', $._imperative_statement)),
 
         interface_action: $ => $._identifier,
 
-        action_or_call: $ => seq(choice($.action, $.call), ';'),
+        _action_or_call: $ => seq(choice($.action, $.call), ';'),
 
-        action: $ => seq($.port_name, '.', $.name, $.arguments),
+        action: $ => seq(field('port_name', $.port_name), '.', field('name', $.name), field('arguments', $.arguments)),
 
-        call: $ => seq($.name, $.arguments),
+        call: $ => seq(field('name', $.name), field('arguments', $.arguments)),
 
-        arguments: $ => seq('(', optional(seq($.expression, repeat(seq(',', $.expression)))), ')'),
+        arguments: $ => seq(
+            '(',
+            optional(seq(
+                field('expression', $._expression), 
+                repeat(seq(',', field('expression', $._expression)))
+            )), 
+            ')'
+        ),
 
         skip_statement: $ => ';',
 
-        blocking: $ => seq('blocking', $.statement),
+        blocking: $ => seq('blocking', field('statement', $._statement)),
 
         illegal: $ => seq('illegal', ';'),
 
-        assign: $ => seq($.var, '=', $.expression, ';'),
+        assign: $ => seq(field('left', $.var), '=', field('right', $._expression), ';'),
 
-        if_statement: $ => prec.left(seq('if', '(', $.expression, ')', $.imperative_statement, optional(seq('else', $.imperative_statement)))),
+        if_statement: $ => prec.left(seq(
+            'if', 
+            '(', field('expression', $._expression), ')', 
+            field('statement', $._imperative_statement), 
+            optional(seq('else', field('else_statement', $._imperative_statement))))
+        ),
 
-        reply: $ => seq(optional(seq($.port_name, '.')), 'reply', '(', $.expression, ')', ';'),
+        reply: $ => seq(optional(seq(field('port', $.port_name), '.')), 'reply', '(', field('expression', $._expression), ')', ';'),
 
-        return: $ => seq('return', optional($.expression), ';'),
+        return: $ => seq('return', optional(field('expression', $._expression)), ';'),
 
-        expression: $ => choice(
+        _expression: $ => choice(
             $.unary_expression,
             $.group,
             $.dollars,
@@ -199,30 +264,30 @@ module.exports = grammar({
             $.compound_name,
             $.call,
             $.action,
-            // $.interface_action,
+            // $.interface_action (covered by $.compound_name)
             $.binary_expression,
         ),
 
-        group: $ => seq('(', $.expression, ')'),
+        group: $ => seq('(', field('expression', $._expression), ')'),
 
         literal: $ => choice($.number, 'true', 'false'),
 
         unary_expression: $ => prec(2, choice(
-            seq('!', $.expression),
-            seq('-', $.expression),
+            seq(field('operator', '!'), field('expression', $._expression)),
+            seq(field('operator', '-'), field('expression', $._expression)),
         )),
 
         binary_expression: $ => choice(
-            prec.left(seq($.expression, '||', $.expression)),
-            prec.left(seq($.expression, '&&', $.expression)),
-            prec.left(seq($.expression, '<', $.expression)),
-            prec.left(seq($.expression, '<=', $.expression)),
-            prec.left(seq($.expression, '==', $.expression)),
-            prec.left(seq($.expression, '!=', $.expression)),
-            prec.left(seq($.expression, '>=', $.expression)),
-            prec.left(seq($.expression, '>', $.expression)),
-            prec.left(seq($.expression, '+', $.expression)),
-            prec.left(seq($.expression, '-', $.expression)),
+            prec.left(seq(field('left', $._expression), field('operator', '||'), field('right', $._expression))),
+            prec.left(seq(field('left', $._expression), field('operator', '&&'), field('right', $._expression))),
+            prec.left(seq(field('left', $._expression), field('operator', '<'), field('right', $._expression))),
+            prec.left(seq(field('left', $._expression), field('operator', '<='), field('right', $._expression))),
+            prec.left(seq(field('left', $._expression), field('operator', '=='), field('right', $._expression))),
+            prec.left(seq(field('left', $._expression), field('operator', '!='), field('right', $._expression))),
+            prec.left(seq(field('left', $._expression), field('operator', '>='), field('right', $._expression))),
+            prec.left(seq(field('left', $._expression), field('operator', '>'), field('right', $._expression))),
+            prec.left(seq(field('left', $._expression), field('operator', '+'), field('right', $._expression))),
+            prec.left(seq(field('left', $._expression), field('operator', '-'), field('right', $._expression))),
         ),
 
         compound_name: $ => seq(
@@ -253,7 +318,3 @@ module.exports = grammar({
         ),
     }
 });
-
-// What is the purpose of illegal-triggers (line 233)
-// What is the interface action in an expression? (line 306)
-// TODO: Expression interface_action

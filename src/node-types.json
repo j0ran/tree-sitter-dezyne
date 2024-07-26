@@ -2,81 +2,165 @@
   {
     "type": "action",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "arguments",
-          "named": true
-        },
-        {
-          "type": "name",
-          "named": true
-        },
-        {
-          "type": "port_name",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "action_or_call",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "action",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        }
-      ]
+    "fields": {
+      "arguments": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "arguments",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "port_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "port_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "arguments",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        }
-      ]
+    "fields": {
+      "expression": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound_name",
+            "named": true
+          },
+          {
+            "type": "dollars",
+            "named": true
+          },
+          {
+            "type": "group",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "assign",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "var",
-          "named": true
-        }
-      ]
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "var",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound_name",
+            "named": true
+          },
+          {
+            "type": "dollars",
+            "named": true
+          },
+          {
+            "type": "group",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "behavior",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "behavior_body",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "behavior_body",
     "named": true,
     "fields": {},
     "children": {
@@ -84,26 +168,11 @@
       "required": false,
       "types": [
         {
-          "type": "behavior_statement",
+          "type": "blocking",
           "named": true
         },
         {
-          "type": "name",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "behavior_statement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "declarative_statement",
+          "type": "compound",
           "named": true
         },
         {
@@ -119,7 +188,15 @@
           "named": true
         },
         {
+          "type": "guard",
+          "named": true
+        },
+        {
           "type": "int",
+          "named": true
+        },
+        {
+          "type": "on",
           "named": true
         },
         {
@@ -132,46 +209,231 @@
   {
     "type": "binary_expression",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        }
-      ]
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound_name",
+            "named": true
+          },
+          {
+            "type": "dollars",
+            "named": true
+          },
+          {
+            "type": "group",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "!=",
+            "named": false
+          },
+          {
+            "type": "&&",
+            "named": false
+          },
+          {
+            "type": "+",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": "==",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": ">=",
+            "named": false
+          },
+          {
+            "type": "||",
+            "named": false
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound_name",
+            "named": true
+          },
+          {
+            "type": "dollars",
+            "named": true
+          },
+          {
+            "type": "group",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "binding",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "end_point",
-          "named": true
-        }
-      ]
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "end_point",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "end_point",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "blocking",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "statement",
-          "named": true
-        }
-      ]
+    "fields": {
+      "statement": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "assign",
+            "named": true
+          },
+          {
+            "type": "blocking",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound",
+            "named": true
+          },
+          {
+            "type": "defer",
+            "named": true
+          },
+          {
+            "type": "guard",
+            "named": true
+          },
+          {
+            "type": "if_statement",
+            "named": true
+          },
+          {
+            "type": "illegal",
+            "named": true
+          },
+          {
+            "type": "interface_action",
+            "named": true
+          },
+          {
+            "type": "on",
+            "named": true
+          },
+          {
+            "type": "reply",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "skip_statement",
+            "named": true
+          },
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -196,20 +458,27 @@
   {
     "type": "call",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "arguments",
-          "named": true
-        },
-        {
-          "type": "name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "arguments": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "arguments",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -220,39 +489,113 @@
   {
     "type": "component",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "body",
-          "named": true
-        },
-        {
-          "type": "port",
-          "named": true
-        },
-        {
-          "type": "scoped_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "scoped_name",
+            "named": true
+          }
+        ]
+      },
+      "port": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "port",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "compound",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "statement",
-          "named": true
-        }
-      ]
+    "fields": {
+      "statement": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "assign",
+            "named": true
+          },
+          {
+            "type": "blocking",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound",
+            "named": true
+          },
+          {
+            "type": "defer",
+            "named": true
+          },
+          {
+            "type": "guard",
+            "named": true
+          },
+          {
+            "type": "if_statement",
+            "named": true
+          },
+          {
+            "type": "illegal",
+            "named": true
+          },
+          {
+            "type": "interface_action",
+            "named": true
+          },
+          {
+            "type": "on",
+            "named": true
+          },
+          {
+            "type": "reply",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "skip_statement",
+            "named": true
+          },
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -286,49 +629,77 @@
     }
   },
   {
-    "type": "declarative_statement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "blocking",
-          "named": true
-        },
-        {
-          "type": "compound",
-          "named": true
-        },
-        {
-          "type": "guard",
-          "named": true
-        },
-        {
-          "type": "on",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "defer",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "arguments",
-          "named": true
-        },
-        {
-          "type": "imperative_statement",
-          "named": true
-        }
-      ]
+    "fields": {
+      "arguments": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "arguments",
+            "named": true
+          }
+        ]
+      },
+      "statement": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "assign",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound",
+            "named": true
+          },
+          {
+            "type": "defer",
+            "named": true
+          },
+          {
+            "type": "if_statement",
+            "named": true
+          },
+          {
+            "type": "illegal",
+            "named": true
+          },
+          {
+            "type": "interface_action",
+            "named": true
+          },
+          {
+            "type": "reply",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "skip_statement",
+            "named": true
+          },
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -355,16 +726,27 @@
   {
     "type": "end_point",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "compound_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "asterisk": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "asterisk",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -396,77 +778,53 @@
   {
     "type": "event",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "direction",
-          "named": true
-        },
-        {
-          "type": "event_name",
-          "named": true
-        },
-        {
-          "type": "formals",
-          "named": true
-        },
-        {
-          "type": "type_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "direction": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "direction",
+            "named": true
+          }
+        ]
+      },
+      "event_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "event_name",
+            "named": true
+          }
+        ]
+      },
+      "formals": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "formals",
+            "named": true
+          }
+        ]
+      },
+      "type_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "event_name",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "action",
-          "named": true
-        },
-        {
-          "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "compound_name",
-          "named": true
-        },
-        {
-          "type": "dollars",
-          "named": true
-        },
-        {
-          "type": "group",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "extern",
@@ -513,62 +871,104 @@
   {
     "type": "formal",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "type_name",
-          "named": true
-        },
-        {
-          "type": "var_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "direction": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "formal_direction",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "var_name",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_name",
+            "named": true
+          }
+        ]
+      }
     }
+  },
+  {
+    "type": "formal_direction",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "formals",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "formal",
-          "named": true
-        }
-      ]
+    "fields": {
+      "formal": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "formal",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "function",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "compound",
-          "named": true
-        },
-        {
-          "type": "formals",
-          "named": true
-        },
-        {
-          "type": "name",
-          "named": true
-        },
-        {
-          "type": "type_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "compound",
+            "named": true
+          }
+        ]
+      },
+      "formals": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "formals",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "return_type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -579,119 +979,329 @@
   {
     "type": "group",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        }
-      ]
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound_name",
+            "named": true
+          },
+          {
+            "type": "dollars",
+            "named": true
+          },
+          {
+            "type": "group",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "guard",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "otherwise",
-          "named": true
-        },
-        {
-          "type": "statement",
-          "named": true
-        }
-      ]
+    "fields": {
+      "body": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "assign",
+            "named": true
+          },
+          {
+            "type": "blocking",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound",
+            "named": true
+          },
+          {
+            "type": "defer",
+            "named": true
+          },
+          {
+            "type": "guard",
+            "named": true
+          },
+          {
+            "type": "if_statement",
+            "named": true
+          },
+          {
+            "type": "illegal",
+            "named": true
+          },
+          {
+            "type": "interface_action",
+            "named": true
+          },
+          {
+            "type": "on",
+            "named": true
+          },
+          {
+            "type": "reply",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "skip_statement",
+            "named": true
+          },
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound_name",
+            "named": true
+          },
+          {
+            "type": "dollars",
+            "named": true
+          },
+          {
+            "type": "group",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "otherwise",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "if_statement",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "imperative_statement",
-          "named": true
-        }
-      ]
+    "fields": {
+      "else_statement": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "assign",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound",
+            "named": true
+          },
+          {
+            "type": "defer",
+            "named": true
+          },
+          {
+            "type": "if_statement",
+            "named": true
+          },
+          {
+            "type": "illegal",
+            "named": true
+          },
+          {
+            "type": "interface_action",
+            "named": true
+          },
+          {
+            "type": "reply",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "skip_statement",
+            "named": true
+          },
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      },
+      "expression": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound_name",
+            "named": true
+          },
+          {
+            "type": "dollars",
+            "named": true
+          },
+          {
+            "type": "group",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      },
+      "statement": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "assign",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound",
+            "named": true
+          },
+          {
+            "type": "defer",
+            "named": true
+          },
+          {
+            "type": "if_statement",
+            "named": true
+          },
+          {
+            "type": "illegal",
+            "named": true
+          },
+          {
+            "type": "interface_action",
+            "named": true
+          },
+          {
+            "type": "reply",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "skip_statement",
+            "named": true
+          },
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "illegal",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "imperative_statement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "action_or_call",
-          "named": true
-        },
-        {
-          "type": "assign",
-          "named": true
-        },
-        {
-          "type": "compound",
-          "named": true
-        },
-        {
-          "type": "defer",
-          "named": true
-        },
-        {
-          "type": "if_statement",
-          "named": true
-        },
-        {
-          "type": "illegal",
-          "named": true
-        },
-        {
-          "type": "interface_action",
-          "named": true
-        },
-        {
-          "type": "reply",
-          "named": true
-        },
-        {
-          "type": "return",
-          "named": true
-        },
-        {
-          "type": "skip_statement",
-          "named": true
-        },
-        {
-          "type": "variable",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "import",
@@ -712,39 +1322,27 @@
   {
     "type": "instance",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "compound_name",
-          "named": true
-        },
-        {
-          "type": "name",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "instance_or_binding",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "binding",
-          "named": true
-        },
-        {
-          "type": "instance",
-          "named": true
-        }
-      ]
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "compound_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -786,24 +1384,27 @@
   {
     "type": "interface",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "behavior",
-          "named": true
-        },
-        {
-          "type": "interface_statement",
-          "named": true
-        },
-        {
-          "type": "scoped_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interface_body",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "scoped_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -812,12 +1413,23 @@
     "fields": {}
   },
   {
-    "type": "interface_statement",
+    "type": "interface_body",
     "named": true,
-    "fields": {},
+    "fields": {
+      "behavior": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "behavior",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
           "type": "enum",
@@ -907,51 +1519,143 @@
   {
     "type": "on",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "statement",
-          "named": true
-        },
-        {
-          "type": "triggers",
-          "named": true
-        }
-      ]
+    "fields": {
+      "body": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "assign",
+            "named": true
+          },
+          {
+            "type": "blocking",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound",
+            "named": true
+          },
+          {
+            "type": "defer",
+            "named": true
+          },
+          {
+            "type": "guard",
+            "named": true
+          },
+          {
+            "type": "if_statement",
+            "named": true
+          },
+          {
+            "type": "illegal",
+            "named": true
+          },
+          {
+            "type": "interface_action",
+            "named": true
+          },
+          {
+            "type": "on",
+            "named": true
+          },
+          {
+            "type": "reply",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "skip_statement",
+            "named": true
+          },
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      },
+      "triggers": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "triggers",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "port",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "compound_name",
-          "named": true
-        },
-        {
-          "type": "formals",
-          "named": true
-        },
-        {
-          "type": "port_direction",
-          "named": true
-        },
-        {
-          "type": "port_name",
-          "named": true
-        },
-        {
-          "type": "port_qualifiers",
-          "named": true
-        }
-      ]
+    "fields": {
+      "direction": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "port_direction",
+            "named": true
+          }
+        ]
+      },
+      "formals": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "formals",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "port_name",
+            "named": true
+          }
+        ]
+      },
+      "qualifiers": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "port_qualifiers",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "compound_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -962,24 +1666,37 @@
   {
     "type": "port_event",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "name",
-          "named": true
-        },
-        {
-          "type": "port_name",
-          "named": true
-        },
-        {
-          "type": "trigger_formals",
-          "named": true
-        }
-      ]
+    "fields": {
+      "formals": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "trigger_formals",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "port": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "port_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -988,42 +1705,122 @@
     "fields": {}
   },
   {
-    "type": "port_qualifiers",
+    "type": "port_qualifier",
     "named": true,
     "fields": {}
   },
   {
+    "type": "port_qualifiers",
+    "named": true,
+    "fields": {
+      "qualifier": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "port_qualifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "reply",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "port_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound_name",
+            "named": true
+          },
+          {
+            "type": "dollars",
+            "named": true
+          },
+          {
+            "type": "group",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      },
+      "port": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "port_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "return",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        }
-      ]
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound_name",
+            "named": true
+          },
+          {
+            "type": "dollars",
+            "named": true
+          },
+          {
+            "type": "group",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1080,26 +1877,23 @@
     "fields": {}
   },
   {
-    "type": "statement",
+    "type": "system",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "declarative_statement",
-          "named": true
-        },
-        {
-          "type": "imperative_statement",
-          "named": true
-        }
-      ]
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "system_body",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
-    "type": "system",
+    "type": "system_body",
     "named": true,
     "fields": {},
     "children": {
@@ -1107,7 +1901,11 @@
       "required": false,
       "types": [
         {
-          "type": "instance_or_binding",
+          "type": "binding",
+          "named": true
+        },
+        {
+          "type": "instance",
           "named": true
         }
       ]
@@ -1173,16 +1971,17 @@
   {
     "type": "triggers",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "trigger",
-          "named": true
-        }
-      ]
+    "fields": {
+      "trigger": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "trigger",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1203,16 +2002,59 @@
   {
     "type": "unary_expression",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        }
-      ]
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound_name",
+            "named": true
+          },
+          {
+            "type": "dollars",
+            "named": true
+          },
+          {
+            "type": "group",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "!",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -1228,24 +2070,65 @@
   {
     "type": "variable",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "type_name",
-          "named": true
-        },
-        {
-          "type": "var_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "action",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound_name",
+            "named": true
+          },
+          {
+            "type": "dollars",
+            "named": true
+          },
+          {
+            "type": "group",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "var_name",
+            "named": true
+          }
+        ]
+      },
+      "type_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1270,10 +2153,6 @@
   },
   {
     "type": ")",
-    "named": false
-  },
-  {
-    "type": "*",
     "named": false
   },
   {
@@ -1355,6 +2234,10 @@
   {
     "type": "]",
     "named": false
+  },
+  {
+    "type": "asterisk",
+    "named": true
   },
   {
     "type": "behavior",
