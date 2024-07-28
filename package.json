@@ -5,6 +5,7 @@
   "main": "bindings/node",
   "types": "bindings/node",
   "scripts": {
+    "build:wasm": "npx tree-sitter-cli build --wasm",
     "test": "npx tree-sitter-cli test",
     "install": "node-gyp-build",
     "prebuildify": "prebuildify --napi --strip",
