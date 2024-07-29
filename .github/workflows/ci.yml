@@ -1,0 +1,25 @@
+name: CI
+
+on:
+    [push]
+
+jobs:
+    build:
+        name: Build & Test
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Use Node.js 20.16.0
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 20.16.0
+            - run: npm install
+            - run: npm test
+            - run: npm run build:wasm
+            - name: Publish wasm output build artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: tree-sitter-dezyne.wasm
+                path: tree-sitter-dezyne.wasm
