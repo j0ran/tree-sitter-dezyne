@@ -1,0 +1,29 @@
+===========================
+Enum with numeric members
+===========================
+component A {
+    behavior {
+        enum MyEnum { 1, 2, 3 };
+        MyEnum e = MyEnum.3;
+    }
+}
+---
+(root
+    (component
+        (scoped_name)
+        (behavior
+            (behavior_body
+                (enum
+                    (scoped_name)
+                    (fields
+                        (member_name)
+                        (member_name)
+                        (member_name)))
+                (variable
+                    (type_name
+                        (compound_name
+                            (identifier)))
+                    (var_name)
+                    (compound_name
+                        (identifier)
+                        (identifier)))))))

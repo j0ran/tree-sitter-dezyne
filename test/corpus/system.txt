@@ -1,0 +1,33 @@
+===========================
+Basic system
+===========================
+component S {
+    system {
+        Inst i;
+        Inst b;
+        i.a <=> b.c;
+    }
+}
+---
+(root
+    (component
+        (scoped_name)
+        (system
+            (system_body
+                (instance
+                    (compound_name
+                        (identifier))
+                    (name))
+                (instance
+                    (compound_name
+                        (identifier))
+                    (name))
+                (binding
+                    (end_point
+                        (compound_name
+                            (identifier)
+                            (identifier)))
+                    (end_point
+                        (compound_name
+                            (identifier)
+                            (identifier))))))))

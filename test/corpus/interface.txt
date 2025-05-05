@@ -1,0 +1,68 @@
+===========================
+Basic interface
+===========================
+interface I {
+    in void A();
+    out void C();
+
+    behavior {
+        enum State {
+            S,
+            T
+        };
+        State s = State.S;
+
+        [s.S] on A: { s = S.T; C; reply(true); }
+    }
+}
+
+---
+(root
+    (interface
+        (scoped_name)
+        (interface_body
+            (event
+                (direction)
+                (type_name)
+                (event_name)
+                (formals))
+            (event
+                (direction)
+                (type_name)
+                (event_name)
+                (formals))
+            (behavior
+                (behavior_body
+                    (enum
+                        (scoped_name)
+                        (fields
+                            (member_name)
+                            (member_name)))
+                    (variable
+                        (type_name
+                            (compound_name
+                            (identifier)))
+                        (var_name)
+                        (compound_name
+                            (identifier)
+                            (identifier)))
+                    (guard
+                        (guard_condition
+                            (compound_name
+                                (identifier)
+                                (identifier)))
+                        (on
+                            (triggers
+                                (trigger
+                                    (compound_name
+                                    (identifier))))
+                                (compound
+                                    (assign
+                                        (name)
+                                        (compound_name
+                                            (identifier)
+                                            (identifier)))
+                                    (interface_action_statement
+                                        (interface_action))
+                                    (reply
+                                        (literal))))))))))

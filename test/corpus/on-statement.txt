@@ -1,0 +1,76 @@
+===========================
+Simple component with on
+===========================
+component A {
+    behavior {
+        on i.e: {}
+    }
+}
+---
+(root
+    (component
+        (scoped_name)
+        (behavior
+            (behavior_body
+                (on
+                    (triggers
+                        (trigger
+                            (compound_name
+                                (identifier)
+                                (identifier))))
+                    (compound))))))
+
+===========================
+Simple component with optional inevitable
+===========================
+component A {
+    behavior {
+        on optional: {}
+        on inevitable: {}
+    }
+}
+---
+(root
+    (component
+        (scoped_name)
+        (behavior
+            (behavior_body
+                (on
+                    (triggers
+                        (trigger
+                            (optional)))
+                    (compound))
+                (on
+                    (triggers
+                        (trigger
+                            (inevitable)))
+                    (compound))))))
+
+===========================
+Basic on statement with parameters
+===========================
+component C {
+    behavior {
+        on port.func(abc, def): {
+
+        }
+    }
+}
+---
+(root
+    (component
+        (scoped_name)
+        (behavior
+            (behavior_body
+            (on
+                (triggers
+                    (trigger
+                        (compound_name
+                            (identifier)
+                            (identifier))
+                        (trigger_formals
+                            (trigger_formal
+                                (name))
+                            (trigger_formal
+                                (name)))))
+                (compound))))))

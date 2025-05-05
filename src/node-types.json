@@ -1,41 +1,5 @@
 [
   {
-    "type": "action",
-    "named": true,
-    "fields": {
-      "arguments": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "arguments",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "name",
-            "named": true
-          }
-        ]
-      },
-      "port_name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "port_name",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "arguments",
     "named": true,
     "fields": {
@@ -43,10 +7,6 @@
         "multiple": true,
         "required": false,
         "types": [
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "binary_expression",
             "named": true
@@ -88,7 +48,7 @@
         "required": true,
         "types": [
           {
-            "type": "var",
+            "type": "name",
             "named": true
           }
         ]
@@ -97,10 +57,6 @@
         "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "binary_expression",
             "named": true
@@ -162,52 +118,53 @@
   {
     "type": "behavior_body",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "blocking",
-          "named": true
-        },
-        {
-          "type": "compound",
-          "named": true
-        },
-        {
-          "type": "enum",
-          "named": true
-        },
-        {
-          "type": "extern",
-          "named": true
-        },
-        {
-          "type": "function",
-          "named": true
-        },
-        {
-          "type": "guard",
-          "named": true
-        },
-        {
-          "type": "int",
-          "named": true
-        },
-        {
-          "type": "invariant",
-          "named": true
-        },
-        {
-          "type": "on",
-          "named": true
-        },
-        {
-          "type": "variable",
-          "named": true
-        }
-      ]
+    "fields": {
+      "statement": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "blocking",
+            "named": true
+          },
+          {
+            "type": "compound",
+            "named": true
+          },
+          {
+            "type": "enum",
+            "named": true
+          },
+          {
+            "type": "extern",
+            "named": true
+          },
+          {
+            "type": "function",
+            "named": true
+          },
+          {
+            "type": "guard",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "invariant",
+            "named": true
+          },
+          {
+            "type": "on",
+            "named": true
+          },
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -218,10 +175,6 @@
         "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "binary_expression",
             "named": true
@@ -307,10 +260,6 @@
         "required": true,
         "types": [
           {
-            "type": "action",
-            "named": true
-          },
-          {
             "type": "binary_expression",
             "named": true
           },
@@ -373,17 +322,9 @@
     "named": true,
     "fields": {
       "statement": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": ";",
-            "named": false
-          },
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "assign",
             "named": true
@@ -393,7 +334,7 @@
             "named": true
           },
           {
-            "type": "call",
+            "type": "call_statement",
             "named": true
           },
           {
@@ -417,7 +358,7 @@
             "named": true
           },
           {
-            "type": "interface_action",
+            "type": "interface_action_statement",
             "named": true
           },
           {
@@ -449,25 +390,6 @@
     }
   },
   {
-    "type": "body",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "behavior",
-          "named": true
-        },
-        {
-          "type": "system",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "call",
     "named": true,
     "fields": {
@@ -486,7 +408,23 @@
         "required": true,
         "types": [
           {
-            "type": "name",
+            "type": "compound_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "call_statement",
+    "named": true,
+    "fields": {
+      "call": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "call",
             "named": true
           }
         ]
@@ -507,7 +445,11 @@
         "required": false,
         "types": [
           {
-            "type": "body",
+            "type": "behavior",
+            "named": true
+          },
+          {
+            "type": "system",
             "named": true
           }
         ]
@@ -543,14 +485,6 @@
         "required": false,
         "types": [
           {
-            "type": ";",
-            "named": false
-          },
-          {
-            "type": "action",
-            "named": true
-          },
-          {
             "type": "assign",
             "named": true
           },
@@ -559,7 +493,7 @@
             "named": true
           },
           {
-            "type": "call",
+            "type": "call_statement",
             "named": true
           },
           {
@@ -583,7 +517,7 @@
             "named": true
           },
           {
-            "type": "interface_action",
+            "type": "interface_action_statement",
             "named": true
           },
           {
@@ -623,8 +557,8 @@
         "required": false,
         "types": [
           {
-            "type": "global",
-            "named": true
+            "type": ".",
+            "named": false
           }
         ]
       },
@@ -632,10 +566,6 @@
         "multiple": true,
         "required": true,
         "types": [
-          {
-            "type": ".",
-            "named": false
-          },
           {
             "type": "identifier",
             "named": true
@@ -659,23 +589,15 @@
         ]
       },
       "statement": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": ";",
-            "named": false
-          },
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "assign",
             "named": true
           },
           {
-            "type": "call",
+            "type": "call_statement",
             "named": true
           },
           {
@@ -695,7 +617,7 @@
             "named": true
           },
           {
-            "type": "interface_action",
+            "type": "interface_action_statement",
             "named": true
           },
           {
@@ -877,7 +799,7 @@
         "required": true,
         "types": [
           {
-            "type": "name",
+            "type": "member_name",
             "named": true
           }
         ]
@@ -945,52 +867,12 @@
     "type": "function",
     "named": true,
     "fields": {
-      "body": {
-        "multiple": true,
-        "required": true,
+      "compound": {
+        "multiple": false,
+        "required": false,
         "types": [
           {
-            "type": ";",
-            "named": false
-          },
-          {
-            "type": "=",
-            "named": false
-          },
-          {
-            "type": "action",
-            "named": true
-          },
-          {
-            "type": "binary_expression",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
             "type": "compound",
-            "named": true
-          },
-          {
-            "type": "compound_name",
-            "named": true
-          },
-          {
-            "type": "dollars",
-            "named": true
-          },
-          {
-            "type": "group",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "unary_expression",
             "named": true
           }
         ]
@@ -1000,35 +882,7 @@
         "required": false,
         "types": [
           {
-            "type": "action",
-            "named": true
-          },
-          {
-            "type": "binary_expression",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "compound_name",
-            "named": true
-          },
-          {
-            "type": "dollars",
-            "named": true
-          },
-          {
-            "type": "group",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "unary_expression",
+            "type": "function_body_one_line",
             "named": true
           }
         ]
@@ -1066,9 +920,44 @@
     }
   },
   {
-    "type": "global",
+    "type": "function_body_one_line",
     "named": true,
-    "fields": {}
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "compound_name",
+            "named": true
+          },
+          {
+            "type": "dollars",
+            "named": true
+          },
+          {
+            "type": "group",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "group",
@@ -1078,10 +967,6 @@
         "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "binary_expression",
             "named": true
@@ -1119,17 +1004,9 @@
     "named": true,
     "fields": {
       "body": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": ";",
-            "named": false
-          },
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "assign",
             "named": true
@@ -1139,7 +1016,7 @@
             "named": true
           },
           {
-            "type": "call",
+            "type": "call_statement",
             "named": true
           },
           {
@@ -1163,7 +1040,7 @@
             "named": true
           },
           {
-            "type": "interface_action",
+            "type": "interface_action_statement",
             "named": true
           },
           {
@@ -1197,9 +1074,21 @@
         "required": true,
         "types": [
           {
-            "type": "action",
+            "type": "guard_condition",
             "named": true
-          },
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "guard_condition",
+    "named": true,
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": true,
+        "types": [
           {
             "type": "binary_expression",
             "named": true
@@ -1237,27 +1126,24 @@
     }
   },
   {
+    "type": "identifier",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "if_statement",
     "named": true,
     "fields": {
       "else_statement": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": ";",
-            "named": false
-          },
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "assign",
             "named": true
           },
           {
-            "type": "call",
+            "type": "call_statement",
             "named": true
           },
           {
@@ -1277,7 +1163,7 @@
             "named": true
           },
           {
-            "type": "interface_action",
+            "type": "interface_action_statement",
             "named": true
           },
           {
@@ -1302,10 +1188,6 @@
         "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "binary_expression",
             "named": true
@@ -1337,23 +1219,15 @@
         ]
       },
       "statement": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": ";",
-            "named": false
-          },
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "assign",
             "named": true
           },
           {
-            "type": "call",
+            "type": "call_statement",
             "named": true
           },
           {
@@ -1373,7 +1247,7 @@
             "named": true
           },
           {
-            "type": "interface_action",
+            "type": "interface_action_statement",
             "named": true
           },
           {
@@ -1511,6 +1385,22 @@
     "fields": {}
   },
   {
+    "type": "interface_action_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interface_action",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "interface_body",
     "named": true,
     "fields": {
@@ -1523,29 +1413,29 @@
             "named": true
           }
         ]
+      },
+      "interface_statement": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "enum",
+            "named": true
+          },
+          {
+            "type": "event",
+            "named": true
+          },
+          {
+            "type": "extern",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "enum",
-          "named": true
-        },
-        {
-          "type": "event",
-          "named": true
-        },
-        {
-          "type": "extern",
-          "named": true
-        },
-        {
-          "type": "int",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1556,10 +1446,6 @@
         "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "binary_expression",
             "named": true
@@ -1616,6 +1502,40 @@
     "type": "namespace",
     "named": true,
     "fields": {
+      "body_statement": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "component",
+            "named": true
+          },
+          {
+            "type": "enum",
+            "named": true
+          },
+          {
+            "type": "extern",
+            "named": true
+          },
+          {
+            "type": "function",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "interface",
+            "named": true
+          },
+          {
+            "type": "namespace",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -1626,40 +1546,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "component",
-          "named": true
-        },
-        {
-          "type": "enum",
-          "named": true
-        },
-        {
-          "type": "extern",
-          "named": true
-        },
-        {
-          "type": "function",
-          "named": true
-        },
-        {
-          "type": "int",
-          "named": true
-        },
-        {
-          "type": "interface",
-          "named": true
-        },
-        {
-          "type": "namespace",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1667,17 +1553,9 @@
     "named": true,
     "fields": {
       "body": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": ";",
-            "named": false
-          },
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "assign",
             "named": true
@@ -1687,7 +1565,7 @@
             "named": true
           },
           {
-            "type": "call",
+            "type": "call_statement",
             "named": true
           },
           {
@@ -1711,7 +1589,7 @@
             "named": true
           },
           {
-            "type": "interface_action",
+            "type": "interface_action_statement",
             "named": true
           },
           {
@@ -1781,7 +1659,7 @@
         "required": true,
         "types": [
           {
-            "type": "port_name",
+            "type": "name",
             "named": true
           }
         ]
@@ -1814,47 +1692,6 @@
     "fields": {}
   },
   {
-    "type": "port_event",
-    "named": true,
-    "fields": {
-      "formals": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "trigger_formals",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "name",
-            "named": true
-          }
-        ]
-      },
-      "port": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "port_name",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "port_name",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "port_qualifier",
     "named": true,
     "fields": {}
@@ -1881,12 +1718,8 @@
     "fields": {
       "expression": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "binary_expression",
             "named": true
@@ -1922,7 +1755,7 @@
         "required": false,
         "types": [
           {
-            "type": "port_name",
+            "type": "name",
             "named": true
           }
         ]
@@ -1937,10 +1770,6 @@
         "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "binary_expression",
             "named": true
@@ -1976,49 +1805,49 @@
   {
     "type": "root",
     "named": true,
-    "root": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "component",
-          "named": true
-        },
-        {
-          "type": "dollars",
-          "named": true
-        },
-        {
-          "type": "enum",
-          "named": true
-        },
-        {
-          "type": "extern",
-          "named": true
-        },
-        {
-          "type": "function",
-          "named": true
-        },
-        {
-          "type": "import",
-          "named": true
-        },
-        {
-          "type": "int",
-          "named": true
-        },
-        {
-          "type": "interface",
-          "named": true
-        },
-        {
-          "type": "namespace",
-          "named": true
-        }
-      ]
+    "fields": {
+      "statement": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "component",
+            "named": true
+          },
+          {
+            "type": "dollars",
+            "named": true
+          },
+          {
+            "type": "enum",
+            "named": true
+          },
+          {
+            "type": "extern",
+            "named": true
+          },
+          {
+            "type": "function",
+            "named": true
+          },
+          {
+            "type": "import",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "interface",
+            "named": true
+          },
+          {
+            "type": "namespace",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2050,77 +1879,109 @@
   {
     "type": "system_body",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "binding",
-          "named": true
-        },
-        {
-          "type": "instance",
-          "named": true
-        }
-      ]
+    "fields": {
+      "instance_or_binding": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "binding",
+            "named": true
+          },
+          {
+            "type": "instance",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "trigger",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "event_name",
-          "named": true
-        },
-        {
-          "type": "inevitable",
-          "named": true
-        },
-        {
-          "type": "optional",
-          "named": true
-        },
-        {
-          "type": "port_event",
-          "named": true
-        }
-      ]
+    "fields": {
+      "formals": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "trigger_formals",
+            "named": true
+          }
+        ]
+      },
+      "inevitable": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "inevitable",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_name",
+            "named": true
+          }
+        ]
+      },
+      "optional": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "optional",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "trigger_formal",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "var",
-          "named": true
-        }
-      ]
+    "fields": {
+      "assign_name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "trigger_formals",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "trigger_formal",
-          "named": true
-        }
-      ]
+    "fields": {
+      "trigger_formal": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "trigger_formal",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2142,16 +2003,17 @@
   {
     "type": "type_name",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "compound_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2162,10 +2024,6 @@
         "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "binary_expression",
             "named": true
@@ -2213,11 +2071,6 @@
     }
   },
   {
-    "type": "var",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "var_name",
     "named": true,
     "fields": {}
@@ -2230,10 +2083,6 @@
         "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "action",
-            "named": true
-          },
           {
             "type": "binary_expression",
             "named": true
@@ -2451,10 +2300,6 @@
     "named": true
   },
   {
-    "type": "identifier",
-    "named": true
-  },
-  {
     "type": "if",
     "named": false
   },
@@ -2489,6 +2334,10 @@
   {
     "type": "invariant",
     "named": false
+  },
+  {
+    "type": "member_name",
+    "named": true
   },
   {
     "type": "namespace",

@@ -26,7 +26,8 @@ bool foo() = false;
         (type_name)
         (name)
         (formals)
-        (literal)))
+        (function_body_one_line
+            (literal))))
 
 ===========================
 Global function in namespace
@@ -43,4 +44,5 @@ namespace bar {
             (type_name)
             (name)
             (formals)
-            (literal))))
+            (function_body_one_line
+                (literal)))))

@@ -10,18 +10,17 @@ component C {
 (root
     (component
         (scoped_name)
-        (body
-            (behavior
-                (behavior_body
-                    (invariant
-                        (binary_expression
-                            (compound_name
-                                (identifier)
-                                (identifier))
-                                (unary_expression
-                                    (compound_name
-                                        (identifier)
-                                        (identifier))))))))))
+        (behavior
+            (behavior_body
+                (invariant
+                    (binary_expression
+                        (compound_name
+                            (identifier)
+                            (identifier))
+                            (unary_expression
+                                (compound_name
+                                    (identifier)
+                                    (identifier)))))))))
 
 ===========================
 Invariant in guard
@@ -37,18 +36,18 @@ component C {
 (root
     (component
         (scoped_name)
-        (body
-            (behavior
-            (behavior_body
-                (guard
+        (behavior
+        (behavior_body
+            (guard
+                (guard_condition
                     (compound_name
                         (identifier)
+                        (identifier)))
+                (compound
+                    (invariant
+                    (binary_expression
+                        (compound_name
                         (identifier))
-                    (compound
-                        (invariant
-                        (binary_expression
-                            (compound_name
-                            (identifier))
-                            (compound_name
-                            (identifier)
-                            (identifier)))))))))))
+                        (compound_name
+                        (identifier)
+                        (identifier))))))))))

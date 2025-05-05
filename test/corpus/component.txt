@@ -1,0 +1,135 @@
+===========================
+Basic component with port and on
+===========================
+component A {
+    requires I p;
+    behavior {
+        on p.e: {
+            p.bla();
+        }
+    }
+}
+---
+(root
+    (component
+        (scoped_name)
+        (port
+            (port_direction)
+            (compound_name
+                (identifier))
+            (name))
+        (behavior
+            (behavior_body
+                (on
+                    (triggers
+                        (trigger
+                            (compound_name
+                                (identifier)
+                                (identifier))))
+                    (compound
+                        (call_statement
+                            (call
+                                (compound_name
+                                    (identifier)
+                                    (identifier))
+                                (arguments)))))))))
+
+===========================
+If statement in on
+===========================
+component A {
+    requires I p;
+    behavior {
+        on p.e: {
+            if(abc) {
+                p.bla();
+            }
+        }
+    }
+}
+---
+(root
+    (component
+        (scoped_name)
+        (port
+            (port_direction)
+            (compound_name
+                (identifier))
+            (name))
+        (behavior
+            (behavior_body
+                (on
+                    (triggers
+                        (trigger
+                            (compound_name
+                                (identifier)
+                                (identifier))))
+                    (compound
+                        (if_statement
+                            (compound_name
+                                (identifier))
+                            (compound
+                                (call_statement
+                                    (call
+                                        (compound_name
+                                            (identifier)
+                                            (identifier))
+                                        (arguments)))))))))))
+
+===========================
+Shared state
+===========================
+component A {
+    requires I p;
+    behavior {
+        [p.state.s] {
+
+        }
+    }
+}
+---
+(root
+    (component
+        (scoped_name)
+        (port
+            (port_direction)
+            (compound_name
+                (identifier))
+            (name))
+        (behavior
+            (behavior_body
+                (guard
+                    (guard_condition
+                        (compound_name
+                            (identifier)
+                            (identifier)
+                            (identifier)))
+                    (compound))))))
+
+===========================
+Incomplete guard
+===========================
+component A {
+    requires I p;
+    behavior {
+        [p.state.] {}
+    }
+}
+---
+(root
+    (component
+        (scoped_name)
+        (port
+            (port_direction)
+            (compound_name
+                (identifier))
+            (name))
+        (behavior
+            (behavior_body
+                (guard
+                    (guard_condition
+                        (compound_name
+                            (identifier)
+                            (identifier))
+                        (ERROR))
+                    (compound))))))
