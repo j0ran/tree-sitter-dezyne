@@ -1,0 +1,109 @@
+===========================
+Or expression
+===========================
+component A {
+    behavior {
+        [a || b]{}
+    }
+}
+---
+(root (component (scoped_name) (behavior (behavior_body
+    (guard
+        (guard_condition
+            (binary_expression
+                (compound_name (identifier))
+                (compound_name (identifier))))
+                (compound))))))
+
+===========================
+Multiple-And expression
+===========================
+component A {
+    behavior {
+        [a && b && c]{}
+    }
+}
+---
+(root (component (scoped_name) (behavior (behavior_body
+    (guard
+        (guard_condition
+            (binary_expression
+                (binary_expression
+                    (compound_name (identifier))
+                    (compound_name (identifier)))
+                (compound_name (identifier))))
+                (compound))))))
+
+===========================
+Expression with == precendence
+===========================
+component A {
+    behavior {
+        [a && b == c]{}
+    }
+}
+---
+(root (component (scoped_name) (behavior (behavior_body
+    (guard (guard_condition
+        (binary_expression
+            (compound_name (identifier))
+            (binary_expression
+                (compound_name (identifier))
+                (compound_name (identifier)))))
+            (compound))))))
+
+===========================
+Expression with != precendence
+===========================
+component A {
+    behavior {
+        [a && b != c]{}
+    }
+}
+---
+(root (component (scoped_name) (behavior (behavior_body
+    (guard (guard_condition
+        (binary_expression
+            (compound_name (identifier))
+            (binary_expression
+                (compound_name (identifier))
+                (compound_name (identifier)))))
+            (compound))))))
+
+===========================
+Expression with many precedences
+Should form groups of 2
+===========================
+component A {
+    behavior {
+        [a + b || c - d || d == e || e != f || f > g && g <= k]{}
+    }
+}
+---
+(root (component (scoped_name) (behavior (behavior_body
+    (guard (guard_condition
+        (binary_expression
+            (binary_expression
+                (binary_expression
+                    (binary_expression
+                        (binary_expression
+                            (binary_expression
+                                (compound_name (identifier))
+                                (compound_name (identifier)))
+                            (binary_expression
+                                (compound_name (identifier))
+                                (compound_name (identifier))))
+                        (binary_expression
+                            (compound_name (identifier))
+                            (compound_name (identifier))))
+                        (binary_expression
+                            (compound_name (identifier))
+                            (compound_name (identifier))))
+                    (binary_expression
+                        (compound_name (identifier))
+                        (compound_name (identifier))))
+                    (binary_expression
+                        (compound_name (identifier))
+                        (compound_name (identifier)))))
+                (compound))))))
+
