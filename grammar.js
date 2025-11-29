@@ -286,23 +286,25 @@ module.exports = grammar({
 
         literal: $ => choice($.number, 'true', 'false'),
 
-        unary_expression: $ => prec(2, choice(
-            seq(field('operator', '!'), field('expression', $._expression)),
-            seq(field('operator', '-'), field('expression', $._expression)),
-        )),
+        unary_expression: $ => choice(
+            // Precedence equal priority but higher than any binary operators
+            prec(20, seq(field('operator', '!'), field('expression', $._expression))),
+            prec(20, seq(field('operator', '-'), field('expression', $._expression))),
+        ),
 
         binary_expression: $ => choice(
-            prec.left(seq(field('left', $._expression), field('operator', '||'), field('right', $._expression))),
-            prec.left(seq(field('left', $._expression), field('operator', '&&'), field('right', $._expression))),
-            prec.left(seq(field('left', $._expression), field('operator', '<'), field('right', $._expression))),
-            prec.left(seq(field('left', $._expression), field('operator', '<='), field('right', $._expression))),
-            prec.left(seq(field('left', $._expression), field('operator', '=='), field('right', $._expression))),
-            prec.left(seq(field('left', $._expression), field('operator', '!='), field('right', $._expression))),
-            prec.left(seq(field('left', $._expression), field('operator', '>='), field('right', $._expression))),
-            prec.left(seq(field('left', $._expression), field('operator', '>'), field('right', $._expression))),
-            prec.left(seq(field('left', $._expression), field('operator', '+'), field('right', $._expression))),
-            prec.left(seq(field('left', $._expression), field('operator', '-'), field('right', $._expression))),
-            prec.left(seq(field('left', $._expression), field('operator', '=>'), field('right', $._expression))),
+            // Precedence weakest to strongest
+            prec.left(1, seq(field('left', $._expression), field('operator', '=>'), field('right', $._expression))),
+            prec.left(2, seq(field('left', $._expression), field('operator', '||'), field('right', $._expression))),
+            prec.left(2, seq(field('left', $._expression), field('operator', '&&'), field('right', $._expression))),
+            prec.left(4, seq(field('left', $._expression), field('operator', '=='), field('right', $._expression))),
+            prec.left(4, seq(field('left', $._expression), field('operator', '!='), field('right', $._expression))),
+            prec.left(6, seq(field('left', $._expression), field('operator', '<'), field('right', $._expression))),
+            prec.left(6, seq(field('left', $._expression), field('operator', '<='), field('right', $._expression))),
+            prec.left(6, seq(field('left', $._expression), field('operator', '>='), field('right', $._expression))),
+            prec.left(6, seq(field('left', $._expression), field('operator', '>'), field('right', $._expression))),
+            prec.left(10, seq(field('left', $._expression), field('operator', '+'), field('right', $._expression))),
+            prec.left(10, seq(field('left', $._expression), field('operator', '-'), field('right', $._expression))),
         ),
 
         compound_name: $ => seq(
