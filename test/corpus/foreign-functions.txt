@@ -1,0 +1,49 @@
+===========================
+Foreign bool function
+===========================
+bool foo(provides IBar b);
+---
+(root
+    (foreign_function
+        (type_name)
+        (name)
+        (formals
+            (formal
+                (formal_direction)
+                (type_name
+                    (compound_name
+                    (identifier)))
+                (var_name)))))
+
+===========================
+Foreign function in namespace
+===========================
+namespace ns2
+{
+    ns1.MyExternalType f();
+}
+---
+(root
+    (namespace
+        (compound_name
+            (identifier))
+    (foreign_function
+        (type_name
+            (compound_name
+                (identifier)
+                (identifier)))
+        (name)
+        (formals))))
+
+===========================
+Foreign function with external data
+===========================
+MyExternalType foo();
+---
+(root
+    (foreign_function
+        (type_name
+            (compound_name
+                (identifier)))
+        (name)
+        (formals)))
