@@ -19,7 +19,8 @@ module.exports = grammar({
             $.namespace,
             $.interface,
             $.component,
-            $.function
+            $.function,
+            $.foreign_function
         ),
 
         import: $ => seq('import', field('file_name', $.file_name), ';'),
@@ -53,7 +54,8 @@ module.exports = grammar({
             $.namespace,
             $.interface,
             $.component,
-            $.function
+            $.function,
+            $.foreign_function
         ),
 
         interface: $ => seq('interface', field('name', $.scoped_name), field('body', $.interface_body)),
@@ -143,6 +145,13 @@ module.exports = grammar({
             field('name', $.name), 
             field('formals', $.formals), 
             field('body', choice(field('compound', $.compound), field('expression', $.function_body_one_line)))
+        ),
+
+        foreign_function: $ => seq(
+            field('return_type', $.type_name), 
+            field('name', $.name), 
+            field('formals', $.formals), 
+            ';'
         ),
 
         function_body_one_line: $ => seq(

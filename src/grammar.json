@@ -43,6 +43,10 @@
         {
           "type": "SYMBOL",
           "name": "function"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "foreign_function"
         }
       ]
     },
@@ -348,6 +352,10 @@
         {
           "type": "SYMBOL",
           "name": "function"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "foreign_function"
         }
       ]
     },
@@ -1092,6 +1100,39 @@
               }
             ]
           }
+        }
+      ]
+    },
+    "foreign_function": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "return_type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_name"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "name"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "formals",
+          "content": {
+            "type": "SYMBOL",
+            "name": "formals"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ";"
         }
       ]
     },
